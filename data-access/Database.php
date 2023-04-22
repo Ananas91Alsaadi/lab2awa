@@ -1,9 +1,6 @@
 <?php
 
-// Check for a defined constant or specific file inclusion
-if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
-    die('This file cannot be accessed directly.');
-}
+
 
 // Data access:
 // Class for connecting to database
@@ -13,7 +10,7 @@ class Database
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $db = "multitier_shop";
+    private $db = "lab2";
 
     protected $conn;
 

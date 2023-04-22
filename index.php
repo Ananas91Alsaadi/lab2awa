@@ -1,3 +1,4 @@
+
 <?php
 
 // Define global constant to prevent direct script loading 

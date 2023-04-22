@@ -6,11 +6,11 @@ if (!defined('MY_APP') && basename($_SERVER['PHP_SELF']) == basename(__FILE__)) 
 }
 
 require_once __DIR__ . "/RestAPI.php";
-require_once __DIR__ . "/../business-logic/CustomersService.php";
-
+require_once __DIR__ . "/../business-logic/UsersService.php";
+require_once __DIR__ . "/../models/UsersModel.php";
 // Class for handling requests to "api/Customer"
 
-class CustomersAPI extends RestAPI
+class UsersAPI extends RestAPI
 {
 
     // Handles the request by calling the appropriate member function
@@ -63,18 +63,18 @@ class CustomersAPI extends RestAPI
     // Gets all customers and sends them to the client as JSON
     private function getAll()
     {
-        $customers = CustomersService::getAllCustomers();
+        $users = UsersService::getAllUsers();
 
-        $this->sendJson($customers);
+        $this->sendJson($users);
     }
 
     // Gets one and sends it to the client as JSON
     private function getById($id)
     {
-        $customer = CustomersService::getCustomerById($id);
+        $users = UsersService::getUserById($id);
 
-        if ($customer) {
-            $this->sendJson($customer);
+        if ($users) {
+            $this->sendJson($users);
         }
         else {
             $this->notFound();
@@ -85,12 +85,12 @@ class CustomersAPI extends RestAPI
     // inserting it in the database.
     private function postOne()
     {
-        $customer = new CustomerModel();
+        $users = new UsersModel();
 
-        $customer->customer_name = $this->body["customer_name"];
-        $customer->birth_year = $this->body["birth_year"];
+        $users->first_name = $this->body["first_name"];
+        $users->last_name = $this->body["last_name"];
 
-        $success = CustomersService::saveCustomer($customer);
+        $success = UsersService::saveUser($users);
 
         if($success){
             $this->created();
@@ -104,12 +104,12 @@ class CustomersAPI extends RestAPI
     // by sending it to the DB
     private function putOne($id)
     {
-        $customer = new CustomerModel();
+        $users = new UsersModel();
 
-        $customer->customer_name = $this->body["customer_name"];
-        $customer->birth_year = $this->body["birth_year"];
+        $users->first_name = $this->body["first_name"];
+        $users->last_name = $this->body["last_name"];
 
-        $success = CustomersService::updateCustomerById($id, $customer);
+        $success = UsersService::updateUserById($id, $users);
 
         if($success){
             $this->ok();
@@ -122,13 +122,13 @@ class CustomersAPI extends RestAPI
     // Deletes the customer with the specified ID in the DB
     private function deleteOne($id)
     {
-        $customer = CustomersService::getCustomerById($id);
+        $user = UsersService::getUserById($id);
 
-        if($customer == null){
+        if($user == null){
             $this->notFound();
         }
 
-        $success = CustomersService::deleteCustomerById($id);
+        $success = UsersService::deleteUserById($id);
 
         if($success){
             $this->noContent();
