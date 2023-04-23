@@ -10,7 +10,7 @@ class Database
     private $host = "localhost";
     private $user = "root";
     private $pass = "";
-    private $db = "lab2";
+    private $db = "app_lab";
 
     protected $conn;
 
