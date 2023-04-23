@@ -1,7 +1,7 @@
 
 <?php
 
-// Define global constant to prevent direct script loading 
+// Define global constant to prevent direct script asdasd loading 
 define('MY_APP', true);
 
 // Load the router responsible for handling API requests
